@@ -1,0 +1,7 @@
+Hugo,hugo@santos,ADS
+Hugo,hugo@gmail.com,ADS
+Maria ,maria@gmail.com,MEDICINA
+Ana,anam@gmail.com,ADMIN
+Ricardo,ricardo@,ADS
+Maira,mari@gmail,CDC
+Amanda ,lima@amanda,ADS
