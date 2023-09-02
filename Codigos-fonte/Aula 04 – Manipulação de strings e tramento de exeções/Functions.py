@@ -1,17 +1,3 @@
-# 2. Voltando ao cenário apresentado na situação-problema, que trata de um sistema de registro de
-# notas de alunos em uma pequena instituição de ensino, desenvolver uma solução capaz de
-# persistir (inserir) e ler os dados de notas de alunos em arquivos.
-
-#  O programa deve registrar o nome, email e curso do aluno.
-#  Cada novo registro deve ser armazenado em arquivo.
-#  O usuário deve ter as seguintes opções:
-#    Cadastrar um novo aluno.
-#    Listar os alunos cadastrados.
-#    Buscar um aluno pelo nome.
-
-
-# _______________________________________________________
-
 import os
 import re
 
@@ -41,7 +27,9 @@ def find_student(name):
 
 
 def print_student(student):
+    print('-----------------------------------STUDENT------------------------------------------------')
     print(f'Registration: {student[0]} Name: {student[1]}, Email: {student[2]}, Course: {student[3]}')
+    print('-------------------------------------------------------------------------------------------')
 
 
 def print_menu():
@@ -104,6 +92,7 @@ def onScreenDisplay():
             else:
                 print('Student not found')
         elif option == 4:
+            print('Obrigado por usar o sistema !')
             break
 
 
@@ -138,8 +127,3 @@ def main():
 
     except KeyboardInterrupt as e:
         print(f'Ocorreu o seguinte erro: {e}, o programa foi encerrado pelo usuário: ')
-
-
-
-if __name__ == '__main__':
-    main()
