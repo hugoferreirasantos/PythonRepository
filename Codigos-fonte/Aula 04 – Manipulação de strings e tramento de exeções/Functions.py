@@ -4,7 +4,7 @@ import re
 
 def save_student(registration, name, email, course):
     with open('students.txt', 'a') as file:
-        file.write(f'{registration},{name},{email},{course}\n')
+        file.write(f'Matricula: {registration:1}  - Nome: {name:1}  - Email: {email:1}  - Curso: {course:1}\n')
 
 
 def read_students():
@@ -12,7 +12,7 @@ def read_students():
     if os.path.exists(filename):
         with open('students.txt', 'r') as file:
             lines = file.readlines()
-            return [tuple(line.strip().split(',')) for line in lines]
+            return [tuple(line.strip().split('-')) for line in lines]
     else:
         print(f'Erro: O arquivo {filename} não existe')
     return []
@@ -21,14 +21,14 @@ def read_students():
 def find_student(name):
     students = read_students()
     for student in students:
-        if student[1] == name:
+        if student[1].find(name) != -1:
             return student
     return None
 
 
 def print_student(student):
     print('-----------------------------------STUDENT------------------------------------------------')
-    print(f'Registration: {student[0]} Name: {student[1]}, Email: {student[2]}, Course: {student[3]}')
+    print(f'Registration: {student[0]:14} Name: {student[1]:14} - Email: {student[2]:14} - Course: {student[3]:14}')
     print('-------------------------------------------------------------------------------------------')
 
 
