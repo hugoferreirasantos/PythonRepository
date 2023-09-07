@@ -110,4 +110,16 @@ class Estudent:
             query = '''SELECT * FROM TBCADALUNOS'''
             consult = sql.select(query)
             for row in consult:
-                print(f'Matricula: {row[0]:12} | Nome: {row[1]:12} | Data Nascimento: {row[2]:12} | Altura: {row[3]:12} | Peso: {row[4]:12} | ID Curso: {row[5]:12} | Email: {row[6]:12}')
+                print(f'Matricula: {row[0]:15} | Nome: {row[1]:15} | Data Nascimento: {row[2]:15} | Altura: {row[3]:15} | Peso: {row[4]:15} | ID Curso: {row[5]:15} | Email: {row[6]:15}')
+
+        elif not consult:
+            sql = Sql()
+            nome = input('INSIRA UM NOME PARA PESQUISA: ')
+            query = "SELECT * FROM TBCADALUNOS t WHERE t.NOME = '" + nome + "';"
+            consult = sql.select(query)
+            for row in consult:
+                print(
+                    f'Matricula: {row[0]:15} | Nome: {row[1]:15} | Data Nascimento: {row[2]:15} | Altura: {row[3]:15} | Peso: {row[4]:15} | ID Curso: {row[5]:15} | Email: {row[6]:15}')
+
+
+

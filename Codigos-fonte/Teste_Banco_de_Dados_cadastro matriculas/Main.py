@@ -8,7 +8,7 @@ def print_screen():
     print('Bem vindo !')
     print('1 - Cadastrar aluno: ')
     print('2 - Consultar cadastro de estudentes: ')
-    print()
+    print('3 - Consultar expecifica por nome: ')
 
 
 flag = True
@@ -27,4 +27,8 @@ while flag:
         student2 = Estudent()
         student2.consultEstudents(True)
         print()
+
+    elif option == 3:
+        student3 = Estudent()
+        student3.consultEstudents(False)
 
