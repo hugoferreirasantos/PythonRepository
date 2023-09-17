@@ -7,7 +7,7 @@ class Sql:
 
     # Atributos:
     def __init__(self):
-        self.conn = connector.connect('db_cadastro_matriculas')
+        self.conn = connector.connect('D:\Ambiente_Desenvolvimento\Aulas_Python 3 - 2 - 2023\Repositorio\Codigos-fonte\Teste_Banco_de_Dados_cadastro matriculas\instituicao_faculdade.db')
         self.cursor = self.conn.cursor()
 
     # Metodos:
@@ -22,6 +22,19 @@ class Sql:
         cursor = conxeion.cursor()
         cursor.executemany(query, data)
         conxeion.commit()
+
+    def update(self, query, data):
+        conxeion = self.conn
+        cursor = conxeion.cursor()
+        cursor.execute(query, data)
+        conxeion.commit()
+
+    def delete(self, query, data):
+        conxeion = self.conn
+        cursor = conxeion.cursor()
+        cursor.execute(query, data)
+        conxeion.commit()
+
 
     def select(self, query):
         conexion = self.conn
