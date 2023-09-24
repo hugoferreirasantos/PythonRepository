@@ -7,7 +7,8 @@ class Sql:
 
     # Atributos:
     def __init__(self):
-        self.conn = connector.connect('D:\Ambiente_Desenvolvimento\Aulas_Python 3 - 2 - 2023\Repositorio\Codigos-fonte\Teste_Banco_de_Dados_cadastro matriculas\instituicao_faculdade.db')
+        self.conn = connector.connect(
+            'D:\Ambiente_Desenvolvimento\Aulas_Python 3 - 2 - 2023\Repositorio\Codigos-fonte\Teste_Banco_de_Dados_cadastro matriculas\instituicao_faculdade.db')
         self.cursor = self.conn.cursor()
 
     # Metodos:
@@ -35,11 +36,19 @@ class Sql:
         cursor.execute(query, data)
         conxeion.commit()
 
+    def select(self, query, data=None):
 
-    def select(self, query):
-        conexion = self.conn
-        cursor = conexion.cursor()
+        if data == None:
+            conexion = self.conn
+            cursor = conexion.cursor()
 
-        consult = cursor.execute(query)
+            consult = cursor.execute(query)
 
-        return consult
+            return consult
+        elif data is not None:
+            conexion = self.conn
+            cursor = conexion.cursor()
+
+            consult = cursor.execute(query, data)
+
+            return consult

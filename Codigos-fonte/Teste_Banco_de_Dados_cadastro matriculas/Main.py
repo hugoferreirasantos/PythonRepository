@@ -67,6 +67,9 @@ def print_screen():
     print('11 - Alteração de informações de notas - DO ALUNO')
     print('12 - Alteração de informações de notas - MATRICULA VINCULADA A NOTA')
     print('13 - Alteração de informações de notas - NOTA VINCULADA AO ID DA NOTA NA TABELA NOTAS')
+    print('-------------------EXIBIÇÃO DE NOTAS-----------------------------')
+    print('14 - Exibição  de notas do aluno')
+    print('15 - Exibição  coletiva - NOTA DOS ALUNOS')
     print('9 - Exclusão de notas dos alunos, junto com as informações do aluno')
 
 
@@ -165,11 +168,27 @@ try:
             student13.UpdateNotas('nota')
             print()
 
+        elif option == 14:
+            print('---------------------------------EXIBIÇÃO DE NOTAS DO ALUNO ----------------------')
+            print()
+            studente14 = Estudent()
+            studente14.studentGradeQuery('esp')
+            print()
+        elif option == 15:
+            print('--------------------------------EXIBIÇÃO COLETIVA - NOTA DOS ALUNOS----------------')
+            print()
+            print()
+            student15 = Estudent()
+            student15.studentGradeQuery('all')
+            print()
+            print()
+
 
 
 except KeyboardInterrupt as e:
     print(f'Programa encerrado pelo usuário: {e}')
-
+except ValueError as e:
+    print(f'Erro: Valor ensirido errado: {e}')
 finally:
     print('Programa executado com sucesso !')
 

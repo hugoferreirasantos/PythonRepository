@@ -2,7 +2,6 @@ from Sql import Sql
 
 
 class Estudent:
-
     # Atributos:
     def __init__(self):
         self.matricula = None
@@ -91,9 +90,9 @@ class Estudent:
         except sql.conn.OperationalError as error:
             print(f"---------------| TABELAS JÁ CRIADA |---------:")
             print(f'{error}')
-
-
-
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
         finally:
             if sql.conn:
                 sql.cursor.close()
@@ -147,6 +146,7 @@ class Estudent:
 
     # Método de cadastro de estudantes:
     def registerEstudents(self, quantity):
+        global sql
         try:
             sql = Sql()
 
@@ -167,6 +167,9 @@ class Estudent:
 
         except sql.conn.OperationalError as e:
             print(f'Erro: {e}')
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
 
         finally:
             if sql.conn:
@@ -223,8 +226,9 @@ class Estudent:
 
         except sql.conn.OperationalError as e:
             print(f'Erro:  {e}')
-
-
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
         finally:
             if sql.conn:
                 sql.cursor.close()
@@ -393,7 +397,9 @@ class Estudent:
                 sql.update(query, {'matricula': self.getMatricula(), 'curso': self.getCurso()})
 
                 print('DADOS ALTERADO COM SUCESSO !')
-
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
         finally:
             if sql.conn:
                 sql.cursor.close()
@@ -455,6 +461,9 @@ class Estudent:
             print(f'Erro na programação: {e}')
         except sql.conn.AttributeError as e:
             print(f'Erro na entrada de atributo: {e}')
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
         finally:
             if sql.conn:
                 sql.cursor.close()
@@ -520,7 +529,9 @@ class Estudent:
 
         except sql.conn.OperationalError as e:
             print(f'Erro: {e}')
-
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
         finally:
             if sql.conn:
                 sql.cursor.close()
@@ -658,10 +669,87 @@ class Estudent:
 
         except sql.conn.OperationalError as e:
             print(f'Erro: {e}')
+        except sql.conn.DatabaseError as error:
+            print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+            print(f'{error}')
         finally:
             if sql.conn:
                 sql.cursor.close()
                 sql.conn.close()
+
+    def studentGradeQuery(self,comandType=None):
+
+        if comandType == 'esp':
+            try:
+                matricula = input('INSIRA A MATRICULA DO ALUNO: ').strip()
+                if not matricula.isdigit():
+                    while not matricula.isdigit():
+                        print('Erro: a matricula do aluno deve conter apenas digitos e não pode ter valor vazio !')
+                        matricula = input('INSIRA A MATRICULA DO ALUNO: ').strip()
+                        if not matricula.isdigit():
+                            print('Erro: a matricula do aluno deve conter apenas digitos e não pode ter valor vazio !')
+                            matricula = input('INSIRA A MATRICULA DO ALUNO: ').strip()
+
+                sql = Sql()
+
+                query = '''
+                            SELECT 
+                            a.matricula AS MATRICULA,
+                            a.nome AS NOME,
+                            a.cpf AS CPF,
+                            a.curso AS CURSO,
+                            n.nota AS NOTA
+                            FROM NOTAS n 
+                            INNER JOIN ALUNOS a ON a.matricula = n.matricula 
+                            WHERE n.matricula = :matricula
+                        '''
+
+                consult = sql.select(query, {'matricula': matricula})
+                for row in consult:
+                    print(
+                        f'Matricula: {row[0]:15}   | Nome: {row[1]:15}  | CPF: {row[2]:15}  | Curso: {row[3]:15} | Nota: {row[4]:15}')
+            except sql.conn.OperationalError as e:
+                print(f'Erro: {e}')
+            except sql.conn.DatabaseError as error:
+                print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+                print(f'{error}')
+            finally:
+                if sql.conn:
+                    sql.cursor.close()
+                    sql.conn.close()
+
+        elif comandType == 'all':
+            try:
+
+                sql = Sql()
+
+                query = '''
+                            SELECT 
+                            a.matricula AS MATRICULA,
+                            a.nome AS NOME,
+                            a.cpf AS CPF,
+                            a.curso AS CURSO,
+                            n.nota AS NOTA
+                            FROM NOTAS n 
+                            INNER JOIN ALUNOS a ON a.matricula = n.matricula 
+                        '''
+
+                consult = sql.select(query)
+                for row in consult:
+                    print(
+                        f'Matricula: {row[0]:15}   | Nome: {row[1]:15}  | CPF: {row[2]:15}  | Curso: {row[3]:15} | Nota: {row[4]:15}')
+            except sql.conn.OperationalError as e:
+                print(f'Erro: {e}')
+            except sql.conn.DatabaseError as error:
+                print(f'---------------| HOUVE UM PROBLEMA NO BANCO DE DADOS |---------------------')
+                print(f'{error}')
+            finally:
+                if sql.conn:
+                    sql.cursor.close()
+                    sql.conn.close()
+
+
+
 
 
 
